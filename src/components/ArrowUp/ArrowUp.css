@@ -1,0 +1,8 @@
+.arrow-up {
+    z-index: 1000;
+    color: #ff00ff;
+    position: fixed!important;
+    top: calc( 100vh - 110px ); 
+    right: 60px;
+    font-size: 5em;
+}

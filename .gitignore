@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# privatefile
+/src/api/instance.js
+
 # testing
 /coverage
 
