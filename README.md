@@ -1,3 +1,7 @@
+# Description
+
+I added "instance" file to .gitignore. This file consists url of server. I used axios.create.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
