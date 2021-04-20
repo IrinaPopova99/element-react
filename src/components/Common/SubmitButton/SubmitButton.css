@@ -1,0 +1,26 @@
+:root {
+    --color-black: #000;
+    --color-white: #fff;
+}
+.button-block {
+    text-align: center;
+    margin: 40px 20px;
+}
+.button {
+    padding: 10px 30px;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    transition: all 0.3s ease-out;
+}
+.button:hover {
+    /* border: 1px solid #ff00ff; */
+    background: #ff00ff;
+    /* color: #fff; */
+    transition: all 0.3s ease-out;
+}

@@ -1,0 +1,11 @@
+
+.schedule-list-item > div{
+    font-size: 16px;
+    text-align: center;
+}
+.schedule-list-item.free {
+    color: #999999a2;
+}
+.item-text__second {
+    color: #ff00ff
+}

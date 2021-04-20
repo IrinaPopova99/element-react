@@ -8,34 +8,36 @@ import './TeacherList.css';
 
 const TeacherList = () => {
     const dispatch = useDispatch();
-    const teachers = useSelector((state) => state.teacherReducer.data);
-    console.log(teachers);
-
+    
     useEffect(() => {
         dispatch(setTeachers());
     }, [dispatch]);  
 
+    const teachers = useSelector((state) => state.teacherReducer.data);
+    
+    const teachersList = teachers.map((teacher) => { 
+        return( 
+            <Card key={teacher.id}>
+                <Image src={teacher.photo} wrapped ui={false} />
+                <Card.Content>
+                    <Card.Header>{teacher.first_name} {teacher.last_name}</Card.Header>
+                    <Card.Description>
+                        <TeacherProgramList programs={teacher.id_program} />
+                    </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <a>
+                        <img src={instagramIcon} />
+                    </a>
+                </Card.Content>
+            </Card>
+        )}
+    );
+
     return <div className="teacher-list container">
         <h2>Преподаватели</h2>
         <Card.Group>
-            {teachers.map((teacher) => { 
-                return( 
-                    <Card>
-                        <Image src={teacher.photo} wrapped ui={false} />
-                        <Card.Content>
-                            <Card.Header>{teacher.first_name} {teacher.last_name}</Card.Header>
-                            <Card.Description>
-                                <TeacherProgramList programs={teacher.id_program} />
-                            </Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <img src={instagramIcon} />
-                            </a>
-                        </Card.Content>
-                    </Card>
-                )}
-            )}
+            {teachersList}
         </Card.Group>
     </div>
 }

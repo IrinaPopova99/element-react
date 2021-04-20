@@ -10,13 +10,13 @@ import App from './App';
 import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

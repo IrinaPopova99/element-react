@@ -16,3 +16,10 @@ a {
   justify-content: space-around;
   align-items: center;
 }
+.wrapper {
+  margin: 0 10%;
+}
+.main {
+  background: url('./assets/images/background.png') no-repeat;
+  background-size: cover;
+}

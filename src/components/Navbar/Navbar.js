@@ -1,40 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-// import { Button } from './Button';
+import React, { useState, useRef } from 'react'
+import { NavLink } from 'react-router-dom'
 import './Navbar.css';
-import logoImage from './../../assets/images/logo-image.png';
 import logoText from './../../assets/images/logo-text.png';
+import ModalWindow from '../Common/ModalWindow/ModalWindow';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import { modalType } from '../../constants/modalType';
+import { contentType } from '../../utils/contentType';
+import { useDispatch } from 'react-redux';
+import { logoutUserReq } from '../../redux/authUser/actions';
 
 function Navbar() {
     const [click, setClick] = useState(false);
-    const [button, setButton] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const contentRef = useRef({});
+    const anchorRef = useRef(null);
+    const dispatch = useDispatch();
 
-    const handleClick = () => setClick(!click);
-    const closeMobileMenu = () => setClick(false);
-
-    const showButton = () => {
-        if (window.innerWidth <= 1200) {
-            setButton(false);
-        } else {
-            setButton(true);
+    const handleToggle = () => {
+        setOpen((prevOpen) => !prevOpen);
+    };
+    const onClickAction = (event) => {
+        contentRef.current.value = contentType(event.target.id);
+        setOpenModal(true);
+    }
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
         }
+        setOpen(false);
     };
 
-    useEffect(() => {
-        showButton(false);
-    }, []);
+    const onLogout = () => {
+        dispatch(logoutUserReq());
+    }
 
-    window.addEventListener('resize', showButton);
+    function handleListKeyDown(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setOpen(false);
+        }
+    }
+    const isIn = localStorage.getItem('access_token') ? true : false;
+    const handleClick = () => setClick(!click);
+    const closeMobileMenu = () => setClick(false);
 
     return (
         <div>
             <nav className="navbar">
                 <div className="navbar-container">
                     <div className="navbar-container__link">
-                        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+                        <NavLink to="/" className="navbar-logo" onClick={closeMobileMenu}>
                             {/* <img className="navbar-logo-image" src={logoImage} alt="ELEMENT" /> */}
                             <img className="navbar-logo-text" src={logoText} alt="ELEMENT" />
-                        </Link>
+                        </NavLink>
                     </div>
                     <div className="menu-icon" onClick={handleClick}>
                         <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
@@ -46,7 +70,7 @@ function Navbar() {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="javascript:window.scrollTo(500, 1450);" className="nav-links" onClick={closeMobileMenu}>
+                            <a href="#teachers" className="nav-links" onClick={closeMobileMenu}>
                                 Преподаватели
                             </a>
                         </li>
@@ -60,23 +84,40 @@ function Navbar() {
                                 Галерея
                             </a>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/fortechers" className="nav-links" onClick={closeMobileMenu}>
-                                Преподавателям
-                            </Link>
+                        <li className="nav-item" onMouseOver={handleToggle}
+                            onMouseOut={handleClose}
+                            aria-controls={open ? 'menu-list-grow' : undefined}
+                            aria-haspopup="true" className="menu-list">
+                            <span className="nav-links">Преподавателям</span>
+                            <Popper open={open} role={undefined} transition disablePortal className="menu-list-item">
+                                {({ TransitionProps, placement }) => (
+                                    <Grow
+                                        {...TransitionProps}
+                                    >
+                                        <Paper >
+                                            <ClickAwayListener onClickAway={handleClose}>
+                                                {
+                                                    isIn ? <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                                            <MenuItem onClick={onClickAction}>Эл. журнал</MenuItem>
+                                                            <MenuItem onClick={onLogout}>Выйти</MenuItem>
+                                                        </MenuList>
+                                                        : <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                                            <NavLink to='/signinup'><MenuItem>Войти</MenuItem></NavLink>
+                                                        </MenuList>
+                                                }
+
+                                            </ClickAwayListener>
+                                        </Paper>
+                                    </Grow>
+                                )}
+                            </Popper>
                         </li>
-                        {/* <li className="nav-item">
-                            <Link to="/signup" className="nav-links-mobile" onClick={closeMobileMenu}>
-                                Sign Up
-                            </Link>
-                        </li> */}
                     </ul>
-                    {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} */}
                 </div>
-            </nav>
-        </div>
+            </nav >
+            <ModalWindow content={contentRef.current.value} open={openModal} />
+        </div >
     )
 }
 
 export default Navbar;
-//rfce - make all structure

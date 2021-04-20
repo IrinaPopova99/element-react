@@ -1,0 +1,22 @@
+.schedule-list-item {
+    border: 1px solid #000;
+}
+.modal-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.
+
+.modal {
+    position: fixed;
+    top: none;
+    left: none;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    outline: 0;
+}

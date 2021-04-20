@@ -1,0 +1,23 @@
+// @import "../../../App.scss";
+
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fade-content {
+    position: absolute;
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 30px;
+    outline: none;
+    position: relative;
+    &__close {
+        position: absolute;
+        top: -15px;
+        right: -265px;
+        height: auto;
+    }
+}
