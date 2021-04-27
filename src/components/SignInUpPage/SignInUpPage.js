@@ -4,8 +4,12 @@ import Navbar from '../Navbar/Navbar';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import './SignInUpPage.scss';
 import SignIn from '../SignIn/SignIn';
+import { useErrors } from '../../utils/hooks/useErrors';
+import authReducer from '../../redux/authUser/reducer';
 
 function SignInUpPage() {
+    const error = useErrors(authReducer);
+
     return (
         <div>
             <div className="navbar-sign-page">
@@ -19,9 +23,10 @@ function SignInUpPage() {
                 <Grid container item xs={4} alignItems="center" justify="center" direction="column">
                     <h2>Войти</h2>
                     <SignIn />
+                    <p>{error}</p>
                 </Grid>
             </Grid>
-        </div >
+        </div>
     )
 }
 

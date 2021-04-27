@@ -1,19 +1,26 @@
 import types from "./types";
 
 let initialState = {
-    data: []
+    data: [],
+    error: null,
 };
 
-const programReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case types.SET_PROGRAM:
+const authReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case types.AUTH_SUCCESS:
             return {
                 ...state,
                 ...state.data,
-                data: action.payload
+                data: action.payload,
+                error: null,
             }
+        case types.AUTH_ERROR:
+        return {
+            ...state,
+            error: 'Неверный логин или пароль',
+        }
         default: return state;
     }
 }
 
-export default programReducer;
+export default authReducer;

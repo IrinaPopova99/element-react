@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { setPrograms } from "../../redux/getPrograms/actions";
 import './ProgramList.css';
-import { useListProgram } from '../../utils/useListProgram';
+import { useListProgram } from '../../utils/hooks/useListProgram';
 
 const ProgramList = (props) => {
     const dispatch = useDispatch();

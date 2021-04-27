@@ -5,7 +5,7 @@ import { InputAdornment, TextField, MenuItem, Select, FormGroup, FormControlLabe
 import { yupResolver } from '@hookform/resolvers/yup';
 import { errorMessages } from '../../utils/errorMessages';
 import Checkboxes from './Checkboxes';
-import { useListProgram } from '../../utils/useListProgram';
+import { useListProgram } from '../../utils/hooks/useListProgram';
 import './RegisterForm.scss';
 import TextFields from '../Common/TextFields/TextFields';
 import SubmitButton from '../Common/SubmitButton/SubmitButton';

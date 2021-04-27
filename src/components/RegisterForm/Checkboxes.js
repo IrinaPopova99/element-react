@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Controller } from "react-hook-form";
 import { Checkbox, FormControlLabel } from '@material-ui/core';
-import { useListProgram } from '../../utils/useListProgram';
+import { useListProgram } from '../../utils/hooks/useListProgram';
 
 function Checkboxes({ name, value, register, control }) {
     const [program, setProgram] = useState({});

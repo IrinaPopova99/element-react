@@ -7,6 +7,7 @@ export const AuthAPI = {
                 username,
                 password
             }).then((res) => {
+                console.log(res)
                 instance.defaults.headers['Authorization'] = "JWT " + res.data.access;
                 localStorage.setItem('access_token', res.data.access);
                 localStorage.setItem('refresh_token', res.data.refresh);
