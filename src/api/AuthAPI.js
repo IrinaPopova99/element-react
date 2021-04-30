@@ -20,6 +20,7 @@ export const AuthAPI = {
             instance.post('blacklist/', {
                 "refresh_token": localStorage.getItem("refresh_token")
             }).then((res) => {
+                localStorage.removeItem('username');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 instance.defaults.headers['Authorization'] = null;

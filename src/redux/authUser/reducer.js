@@ -1,8 +1,9 @@
 import types from "./types";
 
 let initialState = {
-    data: [],
+    data: null,
     error: null,
+    isLoading: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -10,15 +11,20 @@ const authReducer = (state = initialState, action) => {
         case types.AUTH_SUCCESS:
             return {
                 ...state,
-                ...state.data,
                 data: action.payload,
                 error: null,
             }
         case types.AUTH_ERROR:
-        return {
-            ...state,
-            error: 'Неверный логин или пароль',
-        }
+            return {
+                ...state,
+                data: null,
+                error: 'Неверный логин или пароль',
+            }
+        case types.AUTH_LOADING:
+            return {
+                ...state,
+                isLoading: action.isLoading,
+            }
         default: return state;
     }
 }

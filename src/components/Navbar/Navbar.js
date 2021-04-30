@@ -4,14 +4,14 @@ import './Navbar.css';
 import logoText from './../../assets/images/logo-text.png';
 import ModalWindow from '../Common/ModalWindow/ModalWindow';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import { modalType } from '../../constants/modalType';
 import { contentType } from '../../utils/contentType';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserReq } from '../../redux/authUser/actions';
 
 function Navbar() {
@@ -47,8 +47,11 @@ function Navbar() {
         }
     }
     const isIn = localStorage.getItem('access_token') ? true : false;
+    const username = localStorage.getItem('username') ? localStorage.getItem('username') : 'преподавателям';
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+
+    const isLoading = useSelector(state => state.authReducer.isLoading);
 
     return (
         <div>
@@ -81,14 +84,14 @@ function Navbar() {
                         </li>
                         <li className="nav-item">
                             <a href="#gallery" className="nav-links" onClick={closeMobileMenu}>
-                                Галерея
+                                <p>Галерея</p>
                             </a>
                         </li>
                         <li className="nav-item" onMouseOver={handleToggle}
                             onMouseOut={handleClose}
                             aria-controls={open ? 'menu-list-grow' : undefined}
                             aria-haspopup="true" className="menu-list">
-                            <span className="nav-links">Преподавателям</span>
+                            <span className="nav-links">{isLoading ? <CircularProgress /> : username}</span>
                             <Popper open={open} role={undefined} transition disablePortal className="menu-list-item">
                                 {({ TransitionProps, placement }) => (
                                     <Grow
@@ -114,9 +117,9 @@ function Navbar() {
                         </li>
                     </ul>
                 </div>
-            </nav >
+            </nav>
             <ModalWindow content={contentRef.current.value} open={openModal} />
-        </div >
+        </div>
     )
 }
 
